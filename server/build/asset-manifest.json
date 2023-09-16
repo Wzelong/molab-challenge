@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/static/js/main.db614eeb.js",
+    "static/media/MainBold.otf": "/static/media/MainBold.a38520a220299be7c79d.otf",
+    "static/media/Article.ttf": "/static/media/Article.cdab14c1138747d56ba3.ttf",
+    "static/media/Main.woff2": "/static/media/Main.fdf2fa7e864514ff51b4.woff2",
+    "index.html": "/index.html",
+    "main.db614eeb.js.map": "/static/js/main.db614eeb.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.db614eeb.js"
+  ]
+}

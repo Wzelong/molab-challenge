@@ -2,12 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const bibtexParser = require("@orcid/bibtex-parse-js");
 const multer = require("multer");
 const e = require("express");
+const path = require("path");
 const MONGO_URI = "mongodb+srv://zelongw:WZLwy2023@cluster0.zwnrvyv.mongodb.net/?retryWrites=true&w=majority";
 const JWT_SECRET="e4d902c0c8a48a0f08a3bea0e40a964b3852758303ad64d1fbb2cb63e6123456";
 
@@ -27,9 +28,9 @@ connectDB();
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, "/build")));
 app.use(cors());
 app.use(bodyParser.json());
-
 
 const UserSchema = new mongoose.Schema({
   email: String,
@@ -291,6 +292,10 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     console.log(error);
     return res.status(500).json({ status: "error", message: "An error occurred while uploading articles" });
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/build/index.html"));
 });
 
 const PORT = 4000;

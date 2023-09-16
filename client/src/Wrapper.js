@@ -43,10 +43,17 @@ const GlobalStyle = createGlobalStyle`
   :where(.css-dev-only-do-not-override-18iikkb).ant-select-dropdown .ant-select-item {
     font-size: 1.3rem;
   }
+  :where(.css-18iikkb).ant-select-dropdown .ant-select-item {
+    font-size: 1.3rem;
+  }
   .rc-virtual-list-scrollbar {
     width: 3px !important;
   }
   :where(.css-dev-only-do-not-override-18iikkb).ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: transparent;
+    color: #c63201;
+  }
+  :where(.css-18iikkb).ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
     background-color: transparent;
     color: #c63201;
   }

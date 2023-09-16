@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mola-lab-challenge
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: mola-lab-challenge
+    spec:
+      containers:
+      - name: app-container
+        image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG

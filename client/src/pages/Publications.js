@@ -472,21 +472,36 @@ const CustomSelect = styled(Select)`
       border: none;
     }
   }
-  :where(.css-dev-only-do-not-override-18iikkb).ant-select .ant-select-arrow {
+  :where(.css-18iikkb).ant-select:not(.ant-select-customize-input)
+    .ant-select-selector {
+    border: none;
+    border-bottom: 1px solid #182457 !important;
+    border-radius: 0 !important;
+    font-family: ArticleFont;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    margin-bottom: 10px;
+
+    &:hover {
+      border: none;
+    }
+  }
+  .ant-select-arrow {
     color: #182457;
   }
 
-  :where(.css-dev-only-do-not-override-18iikkb).ant-select:not(
-      .ant-select-disabled
-    ):not(.ant-select-customize-input):not(.ant-pagination-size-changer)
-    .ant-select-selector {
+  .ant-select-selector {
     box-shadow: none;
     border: none;
     outline: none;
   }
 
-  :where(.css-dev-only-do-not-override-18iikkb).ant-select
-    .ant-select-selection-placeholder {
+  .ant-select-selection-placeholder {
     color: #182457;
     font-family: ArticleFont;
     font-size: 1.3rem;
