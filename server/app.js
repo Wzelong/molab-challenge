@@ -26,8 +26,8 @@ app.use(bodyParser.json());
 const userRoutes = require("./routes/userRoutes");
 const articleRoutes = require("./routes/articleRoutes");
 
-app.use("/api/users", userRoutes);
-app.use("/api/articles", articleRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/article", articleRoutes);
 
 
 const PORT = 4000;
