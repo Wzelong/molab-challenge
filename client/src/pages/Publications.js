@@ -82,11 +82,12 @@ const Publications = () => {
           setType={setType}
           setTopic={setTopic}
           fetchArticles={fetchArticles}
+          searchInput={searchInput}
         />
         <Content>
           <Table>
-            {articles
-              .filter((article) => {
+            {(() => {
+              const filteredArticles = articles.filter((article) => {
                 if (
                   searchInput.length === 0 &&
                   year.length === 0 &&
@@ -119,8 +120,24 @@ const Publications = () => {
                   matchesType &&
                   matchesTopic
                 );
-              })
-              .map((article, index) => (
+              });
+
+              if (filteredArticles.length === 0) {
+                return (
+                  <div
+                    style={{
+                      fontFamily: "ArticleFont",
+                      fontSize: "1.2rem",
+                      margin: "10px",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    No Result
+                  </div>
+                );
+              }
+
+              return filteredArticles.map((article, index) => (
                 <Item key={index}>
                   <ArticleTitle>{article.title}</ArticleTitle>
                   <ArticleAuthors>{article.citation}</ArticleAuthors>
@@ -128,7 +145,8 @@ const Publications = () => {
                     <Bib onClick={() => window.open(article.bib)}>bib</Bib>
                   )}
                 </Item>
-              ))}
+              ));
+            })()}
           </Table>
         </Content>
         <Drawer
@@ -145,6 +163,7 @@ const Publications = () => {
             setType={setType}
             setTopic={setTopic}
             fetchArticles={fetchArticles}
+            searchInput={searchInput}
           />
         </Drawer>
       </ContentWrapper>
@@ -326,6 +345,18 @@ const Filter = (props) => {
       setTopic(null);
     }
   };
+  const [reset, setReset] = useState(false);
+  const handleReset = () => {
+    setReset(true);
+    props.setYear("");
+    props.setType("");
+    props.setTopic("");
+    props.setSearchInput("");
+    setYear(null);
+    setType(null);
+    setTopic(null);
+    props.fetchArticles();
+  };
 
   const handleUpload = (info) => {
     if (info.file.status !== "uploading") {
@@ -341,6 +372,9 @@ const Filter = (props) => {
 
   return (
     <FilterWrapper formobile={props.formobile}>
+      {(year || type || topic || props.searchInput) && (
+        <ResetButton onClick={handleReset}>Reset</ResetButton>
+      )}
       <CustomSelect
         placeholder="Year: all"
         style={{ width: "100%" }}
@@ -368,7 +402,11 @@ const Filter = (props) => {
         allowClear
         dropdownStyle={dropdownStyleSheet}
       />
-      <SearchBar setSearchInput={props.setSearchInput} />
+      <SearchBar
+        setSearchInput={props.setSearchInput}
+        reset={reset}
+        setReset={setReset}
+      />
       {isAdmin && (
         <Upload {...UploadProps} onChange={handleUpload}>
           <UploadButton>
@@ -468,7 +506,7 @@ const CustomSelect = styled(Select)`
     display: flex;
     align-items: center;
     height: 60px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 
     &:hover {
       border: none;
@@ -488,19 +526,32 @@ const CustomSelect = styled(Select)`
     align-items: center;
     height: 60px;
     margin-bottom: 10px;
+    box-shadow: none;
+    outline: none;
 
     &:hover {
       border: none;
     }
   }
-  .ant-select-arrow {
-    color: #182457;
+
+  :where(.css-dev-only-do-not-override-18iikkb).ant-select:not(
+      .ant-select-disabled
+    ):not(.ant-select-customize-input):not(.ant-pagination-size-changer)
+    .ant-select-selector {
+    box-shadow: none !important;
+    outline: none !important;
   }
 
-  .ant-select-selector {
-    box-shadow: none;
-    border: none;
-    outline: none;
+  :where(.css-18iikkb).ant-select:not(.ant-select-disabled):not(
+      .ant-select-customize-input
+    ):not(.ant-pagination-size-changer)
+    .ant-select-selector {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  .ant-select-arrow {
+    color: #182457;
   }
 
   .ant-select-selection-placeholder {
@@ -509,6 +560,28 @@ const CustomSelect = styled(Select)`
     font-size: 1.3rem;
     letter-spacing: 0.05em;
     line-height: 1.8;
+  }
+`;
+
+const ResetButton = styled.div`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  border: 1px solid #182457;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 40px;
+  margin-bottom: 10px;
+  font-family: ArticleFont;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+  transition: all 0.25s ease-out;
+  &:hover {
+    background-color: rgba(0, 0, 0);
+    color: #fff;
+    cursor: pointer;
   }
 `;
 

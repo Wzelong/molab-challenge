@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
+import { useUserContext } from "../contexts/UserContext";
 
 const Header = (props) => {
+  const { setUser, setIsAdmin } = useUserContext();
   const navigate = useNavigate();
   const [plusIconClicked, setPlusIconClicked] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -42,6 +44,8 @@ const Header = (props) => {
                 if (name === "Logout") {
                   localStorage.removeItem("user");
                   localStorage.removeItem("isAdmin");
+                  setUser(null);
+                  setIsAdmin(false);
                   window.location.reload(false);
                 } else {
                   navigate(`/${name.replace(/ /g, "").toLowerCase()}`);
@@ -215,7 +219,7 @@ const PlusIcon = styled(PlusOutlined)`
 
 const NavPopUpWrapper = styled.div`
   position: fixed;
-  top: 50px;
+  top: 0px;
   height: calc(100vh - 60px);
   width: 100vw;
   background-color: rgba(255, 255, 255, 0.8);

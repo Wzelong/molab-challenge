@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { SearchOutlined, CloseCircleFilled } from "@ant-design/icons";
 
 const SearchBar = (props) => {
   const [inputValue, setInputValue] = useState("");
-
+  useEffect(() => {
+    if (props.reset) {
+      setInputValue("");
+      props.setReset(false);
+    }
+  }, [props.reset]);
   const handleChange = (e) => {
     setInputValue(e.target.value);
     if (props.setSearchInput) {
@@ -32,8 +37,8 @@ const SearchBar = (props) => {
           style={{
             fontSize: "0.75rem",
             color: "rgba(0, 0, 0, 0.25)",
-            marginLeft: "12px",
-            position: "relative",
+            right: "12px",
+            position: "absolute",
           }}
           onClick={handleDelete}
         />
