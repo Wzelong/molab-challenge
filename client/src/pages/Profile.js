@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   ArrowLeftOutlined,
@@ -19,6 +19,11 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
   const [warning, setDisplayWarning] = useState(null);
+
+  useEffect(() => {
+    document.title = "Profile";
+  }, []);
+
   const handleBack = () => {
     if (displayChangePassword) {
       setDisplayChangePassword(false);

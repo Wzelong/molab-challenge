@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   ArrowLeftOutlined,
@@ -17,6 +17,9 @@ const Signup = () => {
   const [displayVerifyEmail, setDisplayVerifyEmail] = useState(false);
   const [displayWarning, setDisplayWarning] = useState(false);
 
+  useEffect(() => {
+    document.title = "Signup";
+  }, []);
   const validateEmail = (e) => {
     setDisplayWarning(false);
     const input = e.target.value;

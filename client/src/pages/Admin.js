@@ -38,6 +38,7 @@ const Admin = () => {
 
   useEffect(() => {
     fetchUser();
+    document.title = "Admin";
   }, []);
 
   const handleAdminManage = async (email) => {

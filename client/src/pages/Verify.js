@@ -31,6 +31,9 @@ const Verify = () => {
       navigate("/");
     }
   }, [token]);
+  useEffect(() => {
+    document.title = "Verify";
+  }, []);
 
   const [newPassword, setNewpassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");

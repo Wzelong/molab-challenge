@@ -41,6 +41,7 @@ const Publications = () => {
   };
 
   useEffect(() => {
+    document.title = "Publications";
     updateWindowDimensions();
     window.addEventListener("resize", updateWindowDimensions);
     return () => {
