@@ -16,7 +16,7 @@ const Verify = () => {
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        await axios.get(`http://localhost:4000/verify?token=${token}`);
+        await axios.get(`http://mola-lab-challenge.com/verify?token=${token}`);
       } catch (err) {
         setDisplayInvalidLink(true);
         setTimeout(() => {
@@ -48,7 +48,7 @@ const Verify = () => {
       setDisplayWarning("Password must be at least 8 characters");
     } else {
       try {
-        await axios.post("http://localhost:4000/set-password", {
+        await axios.post("http://mola-lab-challenge.com/set-password", {
           token,
           newPassword,
         });

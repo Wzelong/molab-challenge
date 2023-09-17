@@ -38,7 +38,7 @@ const Profile = () => {
     } else {
       setLoading(true);
       try {
-        await axios.post("http://localhost:4000/reset-password", {
+        await axios.post("http://mola-lab-challenge.com/reset-password", {
           user,
           newPassword,
         });
@@ -55,7 +55,7 @@ const Profile = () => {
     console.log(user);
     try {
       setLoading(true);
-      await axios.post("http://localhost:4000/delete-account", {
+      await axios.post("http://mola-lab-challenge.com/delete-account", {
         user,
       });
       localStorage.removeItem("user");

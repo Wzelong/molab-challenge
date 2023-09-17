@@ -47,10 +47,13 @@ const Login = () => {
     if (emailValid && passwordValid) {
       setLoading(true);
       try {
-        const response = await axios.post("http://localhost:4000/login", {
-          email,
-          password,
-        });
+        const response = await axios.post(
+          "http://mola-lab-challenge.com/login",
+          {
+            email,
+            password,
+          },
+        );
         setLoading(false);
         setUser(email);
         setIsAdmin(response.data.isAdmin);

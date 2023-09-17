@@ -69,7 +69,7 @@ app.post("/signup", async (req, res) => {
     expiresIn: "1h"
   });
 
-  const verificationLink = `http://localhost:3000/verify?token=${token}`;
+  const verificationLink = `http://mola-lab-challenge.com/verify?token=${token}`;
 
   const mailOptions = {
     from: "molapublications@gmail.com",

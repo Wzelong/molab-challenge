@@ -34,7 +34,9 @@ const Signup = () => {
   const handleSignup = async () => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:4000/signup", { email });
+      await axios.post("http://mola-lab-challenge.com/signup", {
+        email,
+      });
       setLoading(false);
       setDisplayVerifyEmail(true);
     } catch (error) {

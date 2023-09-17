@@ -26,7 +26,9 @@ const Admin = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/all-users");
+      const response = await axios.get(
+        "http://mola-lab-challenge.com/all-users",
+      );
       setUsers(response.data.users);
       setListLength(response.data.users.length);
     } catch (error) {
@@ -40,9 +42,12 @@ const Admin = () => {
 
   const handleAdminManage = async (email) => {
     try {
-      const response = await axios.post("http://localhost:4000/admin-manage", {
-        email,
-      });
+      const response = await axios.post(
+        "http://mola-lab-challenge.com/admin-manage",
+        {
+          email,
+        },
+      );
       if (response.data.status === "success") {
         await fetchUser();
       }

@@ -57,7 +57,9 @@ const Publications = () => {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/articles");
+      const response = await axios.get(
+        "http://mola-lab-challenge.com/articles",
+      );
       if (response.data.status === "success") {
         setArticles(response.data.articles);
       }
@@ -383,7 +385,7 @@ const Filter = (props) => {
 
 const UploadProps = {
   name: "file",
-  action: "http://localhost:4000/upload",
+  action: "http://mola-lab-challenge.com/upload",
   accept: ".bib",
   headers: {
     authorization: "authorization-text",
