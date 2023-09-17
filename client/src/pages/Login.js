@@ -189,7 +189,7 @@ const Input = styled.input`
   padding: 20px;
   margin-left: 10px;
   font-family: ArticleFont;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   letter-spacing: 0.05em;
   line-height: 1.8;
   outline-color: black;
