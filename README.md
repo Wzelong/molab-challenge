@@ -1,5 +1,5 @@
 # Mola-Lab Challenge
-This website is built for mola-lab challenge as an entry for a paid position. 
+This website is built for mola-lab challenge. 
 
 Website: http://mola-lab-challenge.com
 
