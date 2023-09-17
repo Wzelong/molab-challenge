@@ -193,29 +193,6 @@ const Title = styled.div`
   -ms-user-select: none;
 `;
 
-const PasswordButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  position: relative;
-  width: 60%;
-  height: 5%;
-  padding: 18px;
-  font-family: ArticleFont;
-  font-size: 1.3rem;
-  letter-spacing: 0.05em;
-  margin-top: 25px;
-  transition: all 0.25s ease-out;
-
-  &:hover {
-    background-color: rgba(0, 0, 0);
-    color: #fff;
-    cursor: pointer;
-  }
-`;
-
 const Input = styled.input`
   border: 1.5px solid rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -225,7 +202,7 @@ const Input = styled.input`
   padding: 20px;
   margin-left: 10px;
   font-family: ArticleFont;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   letter-spacing: 0.05em;
   line-height: 1.8;
   outline-color: black;
