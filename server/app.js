@@ -29,6 +29,9 @@ const articleRoutes = require("./routes/articleRoutes");
 app.use("/api/user", userRoutes);
 app.use("/api/article", articleRoutes);
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/build/index.html"));
+});
 
 const PORT = 4000;
 app.listen(PORT, () => {
