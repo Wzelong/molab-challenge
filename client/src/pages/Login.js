@@ -27,7 +27,7 @@ const Login = () => {
   const validateEmail = (e) => {
     setDisplayWarning(false);
     const input = e.target.value;
-    setEmail(input);
+    setEmail(input.toLowerCase());
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (pattern.test(input)) {
       setEmailValid(true);
@@ -51,11 +51,10 @@ const Login = () => {
     if (emailValid && passwordValid) {
       setLoading(true);
       try {
-        const emailLowerCased = email.toLowerCase();
         const response = await axios.post(
           "http://mola-lab-challenge.com/login",
           {
-            emailLowerCased,
+            email,
             password,
           },
         );
