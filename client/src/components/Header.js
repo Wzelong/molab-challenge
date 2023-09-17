@@ -42,7 +42,7 @@ const Header = (props) => {
               onClick={() => {
                 if (name === "Logout") {
                   localStorage.clear();
-                  window.location.reload(false);
+                  window.location.reload(true);
                 } else {
                   navigate(`/${name.replace(/ /g, "").toLowerCase()}`);
                 }
