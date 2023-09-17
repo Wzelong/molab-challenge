@@ -24,6 +24,7 @@ const Login = () => {
     document.title = "Login";
   }, []);
 
+  // Email must have a valid format: xxx@xxx.xxx
   const validateEmail = (e) => {
     setDisplayWarning(false);
     const input = e.target.value;
@@ -212,6 +213,7 @@ const Input = styled.input`
   display: ${(props) => (props.$displayverify ? "none" : "block")};
 `;
 
+// Display when user enters valid email and password
 const LoginButton = styled(LoginOutlined)`
   font-size: 1.5rem;
   color: #182457;

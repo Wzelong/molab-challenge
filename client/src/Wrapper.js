@@ -4,9 +4,12 @@ import GlobalFonts from "./fonts/fonts";
 import styled, { createGlobalStyle } from "styled-components";
 import { useUserContext } from "./contexts/UserContext";
 
+/** A wrapper componet to handle header's navigation logic.*/
 const Wrapper = ({ children }) => {
   const { user, isAdmin } = useUserContext();
   const [nav, setNav] = useState([]);
+
+  // Render different nav buttons based on user's login status (user, admin, or not logged in).
   useEffect(() => {
     if (!user) {
       setNav(["Sign up", "Login"]);
@@ -16,6 +19,7 @@ const Wrapper = ({ children }) => {
       setNav(["Profile", "Logout"]);
     }
   }, [user, isAdmin]);
+
   return (
     <MainWrapper>
       <GlobalFonts />
@@ -53,6 +57,7 @@ const ChildrenWrapper = styled.div`
   }
 `;
 
+/** Customize antd componets' style */
 const GlobalStyle = createGlobalStyle`
   :where(.css-dev-only-do-not-override-18iikkb).ant-select-dropdown .ant-select-item {
     font-size: 1.3rem;

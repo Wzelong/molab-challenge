@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
-import { useUserContext } from "../contexts/UserContext";
 
+/** A header component to handle navigation logic.
+ * @param {Array} props.navButtons - An array of strings that represent the navigation buttons to be displayed.
+ */
 const Header = (props) => {
   const navigate = useNavigate();
-  const [plusIconClicked, setPlusIconClicked] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [plusIconClicked, setPlusIconClicked] = useState(false); // Plus icon is displayed when the screen is small (mobile) for navigation
+  const [visible, setVisible] = useState(true); // Visibility of the header
+
+  // Hide header when scrolling down and show header when scrolling up
   let lastScrollTop = 0;
   useEffect(() => {
     const handleScroll = () => {
@@ -29,12 +33,14 @@ const Header = (props) => {
 
   return (
     <>
+      {/* Scrolling will not affect header visibility when the mobile navigation is displayed */}
       <HeaderWrapper visible={plusIconClicked ? true : visible}>
         <TitleWrapper onClick={() => navigate("/")}>
           <MainTitle id="main-title">Morality and Language Lab</MainTitle>
           <SubTitle>University of Southern California</SubTitle>
         </TitleWrapper>
         <NavWrapper>
+          {/* Always display the Publication nav */}
           <NavButton onClick={() => navigate("/")}>Publications</NavButton>
           {props.navButtons.map((name, index) => (
             <NavButton
@@ -57,6 +63,7 @@ const Header = (props) => {
           />
         </NavWrapper>
       </HeaderWrapper>
+      {/* Mobile navigation */}
       <NavPopUpWrapper iconclicked={plusIconClicked.toString()}>
         <NavPopUpItem
           onClick={() => {

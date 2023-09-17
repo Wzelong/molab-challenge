@@ -2,14 +2,23 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { SearchOutlined, CloseCircleFilled } from "@ant-design/icons";
 
+/** A search bar component to handle search logic.
+ * @param {Object} props.reset - Parent component's state to reset the search bar.
+ * @param {Function} props.setReset - Parent component's setState function to reset the search bar.
+ * @param {Object} props.style - Style of the search bar.
+ * @param {Function} props.setSearchInput - Parent component's setState function to set the search input (Used when user type-in).
+ */
 const SearchBar = (props) => {
   const [inputValue, setInputValue] = useState("");
+
+  // Reset the search bar when the parent component's reset state is true
   useEffect(() => {
     if (props.reset) {
       setInputValue("");
       props.setReset(false);
     }
   }, [props.reset]);
+
   const handleChange = (e) => {
     setInputValue(e.target.value);
     if (props.setSearchInput) {

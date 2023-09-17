@@ -14,12 +14,14 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [displayVerifyEmail, setDisplayVerifyEmail] = useState(false);
+  const [displayVerifyEmail, setDisplayVerifyEmail] = useState(false); // Display verify email required message after successful signup
   const [displayWarning, setDisplayWarning] = useState(false);
 
   useEffect(() => {
     document.title = "Signup";
   }, []);
+
+  // Email must have a valid format: xxx@xxx.xxx to display signup button.
   const validateEmail = (e) => {
     setDisplayWarning(false);
     const input = e.target.value;

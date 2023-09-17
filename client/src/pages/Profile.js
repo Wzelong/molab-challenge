@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUserContext } from "../contexts/UserContext";
 
+/** Page to handle password reset and account deletion */
 const Profile = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
@@ -24,6 +25,7 @@ const Profile = () => {
     document.title = "Profile";
   }, []);
 
+  // Go back to home page or profile main page.
   const handleBack = () => {
     if (displayChangePassword) {
       setDisplayChangePassword(false);
@@ -35,6 +37,7 @@ const Profile = () => {
       navigate("/");
     }
   };
+
   const handleChangePassword = async () => {
     if (newPassword !== verifyPassword) {
       setDisplayWarning("Passwords do not match");

@@ -4,6 +4,7 @@ const UserContext = createContext();
 
 export const useUserContext = () => useContext(UserContext);
 
+/** Provide global access to user, setUser, admin, and setAdmin field to manage login status */
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);

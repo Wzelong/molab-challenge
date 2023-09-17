@@ -4,7 +4,6 @@ import {
   ArrowLeftOutlined,
   UsergroupAddOutlined,
   UsergroupDeleteOutlined,
-  LoadingOutlined,
 } from "@ant-design/icons";
 import { Pagination } from "antd";
 import GlobalFonts from "../fonts/fonts";
@@ -12,9 +11,13 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import axios from "axios";
 
+/** Admin page for displaying, searching, and granting admin access to registered users. */
 const Admin = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+
+  // Pagination states
+  // Display 8 users per page.
   const [listLength, setListLength] = useState(1);
   const [minIndex, setMinIndex] = useState(0);
   const [maxIndex, setMaxIndex] = useState(8);
@@ -57,7 +60,6 @@ const Admin = () => {
     }
   };
 
-  console.log(searchInput);
   return (
     <>
       <GlobalFonts />
@@ -89,6 +91,7 @@ const Admin = () => {
                       <div style={{ color: user.admin ? "#c63201" : "black" }}>
                         {user.email}
                       </div>
+                      {/* admin@mola.lab cannot be removed from admin */}
                       {user.email === "admin@mola.lab" ? null : (
                         <div className="manage" style={{ display: "none" }}>
                           {user.admin ? (

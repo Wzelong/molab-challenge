@@ -6,54 +6,38 @@ import { UploadOutlined } from "@ant-design/icons";
 import { useUserContext } from "../contexts/UserContext";
 import axios from "axios";
 
-/** Testing function */
-const renderItems = (count) => {
-  const items = [];
-  for (let i = 0; i < count; i++) {
-    items.push(
-      <Item key={i}>
-        <ArticleTitle>
-          Hate Speech Classifiers Learn Normative Social Stereotypes
-        </ArticleTitle>
-        <ArticleAuthors>
-          Davani, A. M., Atari, M., Kennedy, B., & Dehghani, M. (2023). Hate
-          Speech Classifiers Learn Normative Social Stereotypes. Transactions of
-          the Association for Computational Linguistics.
-        </ArticleAuthors>
-        <Bib>bib</Bib>
-      </Item>,
-    );
-  }
-  return items;
-};
-
 const Publications = () => {
-  const [open, setOpen] = useState(false);
+  const [openSideFilter, setOpenSideFilter] = useState(false); // Handle side-filter opening states when screen is small
   const [articles, setArticles] = useState([{}]);
   const [searchInput, setSearchInput] = useState("");
   const [year, setYear] = useState("");
   const [type, setType] = useState("");
   const [topic, setTopic] = useState("");
+
+  // Close side-filter when screen is large
   const updateWindowDimensions = () => {
     if (window.innerWidth > 500) {
-      setOpen(false);
+      setOpenSideFilter(false);
     }
   };
 
   useEffect(() => {
     document.title = "Publications";
+    fetchArticles();
+    // Close side-filter when screen is large
     updateWindowDimensions();
     window.addEventListener("resize", updateWindowDimensions);
     return () => {
       window.removeEventListener("resize", updateWindowDimensions);
     };
   }, []);
+
   const showDrawer = () => {
-    setOpen(true);
+    setOpenSideFilter(true);
   };
 
   const onClose = () => {
-    setOpen(false);
+    setOpenSideFilter(false);
   };
 
   const fetchArticles = async () => {
@@ -69,9 +53,6 @@ const Publications = () => {
     }
   };
 
-  useEffect(() => {
-    fetchArticles();
-  }, []);
   return (
     <BodyWrapper>
       <Title>Publications</Title>
@@ -89,6 +70,7 @@ const Publications = () => {
           <Table>
             {(() => {
               const filteredArticles = articles.filter((article) => {
+                // Display all articles if no filter is applied
                 if (
                   searchInput.length === 0 &&
                   year.length === 0 &&
@@ -96,6 +78,8 @@ const Publications = () => {
                   topic.length === 0
                 )
                   return true;
+
+                // User search is applied to article title and citation
                 const matchesSearchInput =
                   searchInput.length === 0 ||
                   article.title
@@ -120,6 +104,7 @@ const Publications = () => {
                 );
               });
 
+              // Display "No Result" if no article matches the filter
               if (filteredArticles.length === 0) {
                 return (
                   <div
@@ -151,7 +136,7 @@ const Publications = () => {
           placement={"left"}
           closable={true}
           onClose={onClose}
-          open={open}
+          open={openSideFilter}
           width={"80vw"}
         >
           <Filter
@@ -321,7 +306,11 @@ const FilterButton = styled.div`
 `;
 
 const Filter = (props) => {
-  const { isAdmin } = useUserContext();
+  const { isAdmin } = useUserContext(); // Need admin status for uploading publications
+
+  // props.setFilterType() passes the selected filter value to the parent component and apply to the article list
+  // setFilterType() is used to display custom input for each filter: "Year: all", "Type: all", "Topic: all".
+
   const [year, setYear] = useState(null);
   const changeYear = (value) => {
     if (value) {
@@ -354,6 +343,7 @@ const Filter = (props) => {
       setTopic(null);
     }
   };
+
   const [reset, setReset] = useState(false);
   const handleReset = () => {
     setReset(true);

@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+/** Create a unique token using jwt that will expire in 1 hour and send the corresponding link to user. */
 exports.signup = async (req, res) => {
   const { email } = req.body;
 
@@ -38,7 +39,7 @@ exports.signup = async (req, res) => {
     from: "molapublications@gmail.com",
     to: email,
     subject: "Verify your email",
-    text: `Click this link to verify your email: ${verificationLink}. The link will expire in 1 hour.`,
+    text: `Click this link to verify your email: ${verificationLink}.\n The link will expire in 1 hour.`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -50,6 +51,7 @@ exports.signup = async (req, res) => {
   });
 };
 
+/** Verify if the link's token is valid */
 exports.verify = async (req, res) => {
   const { token } = req.query;
   if (!token) {
@@ -74,6 +76,7 @@ exports.verify = async (req, res) => {
   }
 };
 
+/** Set password using token */
 exports.setPassword = async (req, res) => {
   const { token, newPassword } = req.body;
   if (!token || !newPassword) {
@@ -130,6 +133,7 @@ exports.deleteAccount = async (req, res) => {
   return res.status(200).json({ status: "success" });
 };
 
+/** Reset password using user email */
 exports.resetPassword = async (req, res) => {
   const { user, newPassword } = req.body;
   try {

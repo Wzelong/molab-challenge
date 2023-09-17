@@ -12,7 +12,7 @@ import axios from "axios";
 const Verify = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const token = new URLSearchParams(location.search).get("token");
+  const token = new URLSearchParams(location.search).get("token"); // Get unique token from url which maps to user
   useEffect(() => {
     const verifyEmail = async () => {
       try {
@@ -42,9 +42,11 @@ const Verify = () => {
   const [loading, setLoading] = useState(false);
   const [warning, setDisplayWarning] = useState(null);
   const [displayInvalidLink, setDisplayInvalidLink] = useState(false);
+
   const handleBack = () => {
     navigate("/");
   };
+
   const handleChangePassword = async () => {
     setLoading(true);
     if (newPassword !== verifyPassword) {

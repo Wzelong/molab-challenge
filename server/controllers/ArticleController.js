@@ -1,4 +1,4 @@
-const Article = require("../models/Article");
+const Article = require("../models/ArticleModel");
 const bibtexParser = require("@orcid/bibtex-parse-js");
 
 exports.getArticles = async (req, res) => {
