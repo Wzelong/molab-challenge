@@ -42,9 +42,8 @@ const Profile = () => {
           user,
           newPassword,
         });
-        localStorage.removeItem("user");
-        localStorage.removeItem("isAdmin");
-        window.location.reload(false);
+        localStorage.clear();
+        window.location.reload(true);
       } catch (error) {
         console.log(error);
       }
@@ -58,9 +57,8 @@ const Profile = () => {
       await axios.post("http://mola-lab-challenge.com/delete-account", {
         user,
       });
-      localStorage.removeItem("user");
-      localStorage.removeItem("isAdmin");
-      window.location.reload(false);
+      localStorage.clear();
+      window.location.reload(true);
     } catch (error) {
       console.log(error);
     }
