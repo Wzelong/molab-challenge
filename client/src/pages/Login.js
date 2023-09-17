@@ -51,10 +51,11 @@ const Login = () => {
     if (emailValid && passwordValid) {
       setLoading(true);
       try {
+        const emailLowerCased = email.toLowerCase();
         const response = await axios.post(
           "http://mola-lab-challenge.com/login",
           {
-            email,
+            emailLowerCased,
             password,
           },
         );

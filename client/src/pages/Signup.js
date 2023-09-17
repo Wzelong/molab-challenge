@@ -36,9 +36,10 @@ const Signup = () => {
 
   const handleSignup = async () => {
     setLoading(true);
+    const emailLowerCased = email.toLowerCase();
     try {
       await axios.post("http://mola-lab-challenge.com/signup", {
-        email,
+        emailLowerCased,
       });
       setLoading(false);
       setDisplayVerifyEmail(true);
