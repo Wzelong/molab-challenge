@@ -3,7 +3,10 @@ kind: Deployment
 metadata:
   name: mola-lab-challenge
 spec:
-  replicas: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mola-lab-challenge
   template:
     metadata:
       labels:
