@@ -17,16 +17,30 @@ const Wrapper = ({ children }) => {
     }
   }, [user, isAdmin]);
   return (
-    <>
+    <MainWrapper>
       <GlobalFonts />
       <GlobalStyle />
       <Header navButtons={nav} />
       <ChildrenWrapper>{children}</ChildrenWrapper>
-    </>
+    </MainWrapper>
   );
 };
 
 export default Wrapper;
+
+const MainWrapper = styled.div`
+  animation: fade-in 1s ease-in-out;
+  opacity: 1;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`;
 
 const ChildrenWrapper = styled.div`
   width: 100%;

@@ -5,7 +5,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useUserContext } from "../contexts/UserContext";
 
 const Header = (props) => {
-  const { setUser, setIsAdmin } = useUserContext();
   const navigate = useNavigate();
   const [plusIconClicked, setPlusIconClicked] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -42,10 +41,7 @@ const Header = (props) => {
               key={index}
               onClick={() => {
                 if (name === "Logout") {
-                  localStorage.removeItem("user");
-                  localStorage.removeItem("isAdmin");
-                  setUser(null);
-                  setIsAdmin(false);
+                  localStorage.clear();
                   window.location.reload(false);
                 } else {
                   navigate(`/${name.replace(/ /g, "").toLowerCase()}`);

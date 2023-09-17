@@ -106,12 +106,9 @@ const Publications = () => {
 
                 const matchesYear =
                   year.length === 0 || article.year.toString() === year;
-                const matchesType =
-                  type.length === 0 ||
-                  article.type.toLowerCase() === type.toLowerCase();
+                const matchesType = type.length === 0 || article.type === type;
                 const matchesTopic =
-                  topic.length === 0 ||
-                  article.topic.toLowerCase() === topic.toLowerCase();
+                  topic.length === 0 || article.topic === topic;
 
                 // Return true only if the article matches all conditions
                 return (
@@ -217,6 +214,17 @@ const Content = styled.div`
   width: calc(100% - 280px);
   height: auto;
   left: 280px;
+  animation: move-down 1s ease-in-out;
+  transform: translateY(0px);
+
+  @keyframes move-down {
+    from {
+      transform: translateY(-10px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 
   @media (max-width: 700px) {
     width: 100%;
