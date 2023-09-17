@@ -70,8 +70,14 @@ const Header = (props) => {
           <NavPopUpItem
             key={index}
             onClick={() => {
-              navigate(`/${name.replace(/ /g, "").toLowerCase()}`);
-              setPlusIconClicked(false);
+              if (name === "Logout") {
+                localStorage.clear();
+                setPlusIconClicked(false);
+                window.location.reload(true);
+              } else {
+                navigate(`/${name.replace(/ /g, "").toLowerCase()}`);
+                setPlusIconClicked(false);
+              }
             }}
           >
             {name}
@@ -216,7 +222,7 @@ const PlusIcon = styled(PlusOutlined)`
 const NavPopUpWrapper = styled.div`
   position: fixed;
   top: 0px;
-  height: calc(100vh - 60px);
+  height: 100vh;
   width: 100vw;
   background-color: rgba(255, 255, 255, 0.8);
   display: inline-flex;
