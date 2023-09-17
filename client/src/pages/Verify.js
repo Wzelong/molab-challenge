@@ -16,7 +16,9 @@ const Verify = () => {
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        await axios.get(`http://mola-lab-challenge.com/verify?token=${token}`);
+        await axios.get(
+          `http://mola-lab-challenge.com/api/user/verify?token=${token}`,
+        );
       } catch (err) {
         setDisplayInvalidLink(true);
         setTimeout(() => {
@@ -51,10 +53,13 @@ const Verify = () => {
       setDisplayWarning("Password must be at least 8 characters");
     } else {
       try {
-        await axios.post("http://mola-lab-challenge.com/set-password", {
-          token,
-          newPassword,
-        });
+        await axios.post(
+          "http://mola-lab-challenge.com/api/user/set-password",
+          {
+            token,
+            newPassword,
+          },
+        );
       } catch (err) {
         console.error(err.response.data);
       }
@@ -121,6 +126,17 @@ const PasswordWrapper = styled.div`
   flex-direction: column;
   @media (max-height: 700px) {
     height: 700px;
+  }
+  animation: fade-in 1s ease-in-out;
+  opacity: 1;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 

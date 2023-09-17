@@ -37,7 +37,7 @@ const Signup = () => {
   const handleSignup = async () => {
     setLoading(true);
     try {
-      await axios.post("http://mola-lab-challenge.com/signup", {
+      await axios.post("http://mola-lab-challenge.com/api/user/signup", {
         email,
       });
       setLoading(false);
@@ -105,6 +105,17 @@ const SignupWrapper = styled.div`
   flex-direction: column;
   @media (max-height: 700px) {
     height: 700px;
+  }
+  animation: fade-in 1s ease-in-out;
+  opacity: 1;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 

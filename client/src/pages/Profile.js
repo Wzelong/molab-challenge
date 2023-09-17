@@ -43,10 +43,13 @@ const Profile = () => {
     } else {
       setLoading(true);
       try {
-        await axios.post("http://mola-lab-challenge.com/reset-password", {
-          user,
-          newPassword,
-        });
+        await axios.post(
+          "http://mola-lab-challenge.com/api/user/reset-password",
+          {
+            user,
+            newPassword,
+          },
+        );
         localStorage.clear();
         window.location.reload(true);
       } catch (error) {
@@ -59,9 +62,12 @@ const Profile = () => {
     console.log(user);
     try {
       setLoading(true);
-      await axios.post("http://mola-lab-challenge.com/delete-account", {
-        user,
-      });
+      await axios.post(
+        "http://mola-lab-challenge.com/api/user/delete-account",
+        {
+          user,
+        },
+      );
       localStorage.clear();
       window.location.reload(true);
     } catch (error) {
@@ -140,6 +146,17 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   @media (max-height: 700px) {
     height: 700px;
+  }
+  animation: fade-in 1s ease-in-out;
+  opacity: 1;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 

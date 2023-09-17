@@ -27,7 +27,7 @@ const Admin = () => {
   const fetchUser = async () => {
     try {
       const response = await axios.get(
-        "http://mola-lab-challenge.com/all-users",
+        "http://mola-lab-challenge.com/api/user/all-users",
       );
       setUsers(response.data.users);
       setListLength(response.data.users.length);
@@ -44,7 +44,7 @@ const Admin = () => {
   const handleAdminManage = async (email) => {
     try {
       const response = await axios.post(
-        "http://mola-lab-challenge.com/admin-manage",
+        "http://mola-lab-challenge.com/api/user/admin-manage",
         {
           email,
         },
@@ -134,6 +134,18 @@ const AdminWrapper = styled.div`
 
   @media (max-height: 700px) {
     height: 700px;
+  }
+
+  animation: fade-in 1s ease-in-out;
+  opacity: 1;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 
