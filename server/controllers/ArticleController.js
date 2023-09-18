@@ -23,10 +23,24 @@ exports.uploadArticles = async (req, res) => {
       const title = entry.entryTags.title || "";
       const year = parseInt(entry.entryTags.year, 10) || "";
       const authors = entry.entryTags.author || "";
-
       // Create citation: "author. (year). title. [additional info]"
       let citation = `${authors}. (${year}). ${title}`;
 
+      let type = "";
+      // Determine the type based on available fields
+      if (entry.type === "inproceedings") {
+        type = "Proceeding";
+      } else if (entry.entryTags.journal) {
+        if (entry.entryTags.journal.toLowerCase().includes("preprint")) {
+          type = "Preprint";
+        } else {
+          type = "Journal Article";
+        }
+      } else if (entry.entryTags.publisher && entry.entryTags.booktitle) {
+        type = "Book Chapter";
+      } else if (entry.entryTags.publisher && !entry.entryTags.booktitle) {
+        type = "Book";
+      }
       // Append additional fields if they exist.
       let additionalInfo = Object.keys(entry.entryTags)
         .filter(field => !["title", "year", "author"].includes(field))
@@ -41,6 +55,7 @@ exports.uploadArticles = async (req, res) => {
         title,
         citation,
         year,
+        type,
       };
 
       articles.push(article);
