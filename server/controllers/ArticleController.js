@@ -28,7 +28,7 @@ exports.uploadArticles = async (req, res) => {
 
       let type = "";
       // Determine the type based on available fields
-      if (entry.type === "inproceedings") {
+      if (entry.entryType === "inproceedings") {
         type = "Proceeding";
       } else if (entry.entryTags.journal) {
         if (entry.entryTags.journal.toLowerCase().includes("preprint")) {
@@ -36,6 +36,8 @@ exports.uploadArticles = async (req, res) => {
         } else {
           type = "Journal Article";
         }
+      } else if (entry.entryType === "article") {
+        type = "Preprint";
       } else if (entry.entryTags.publisher && entry.entryTags.booktitle) {
         type = "Book Chapter";
       } else if (entry.entryTags.publisher && !entry.entryTags.booktitle) {
