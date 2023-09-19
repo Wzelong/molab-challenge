@@ -64,7 +64,6 @@ const SearchBarWrapper = styled.div`
   border-bottom: 1px solid #182457;
   height: 60px;
   margin-bottom: 10px;
-  margin-top: 10px;
 `;
 
 const Input = styled.input`
@@ -74,7 +73,7 @@ const Input = styled.input`
   height: 60%;
   margin-left: 10px;
   font-family: ArticleFont;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   letter-spacing: 0.05em;
   line-height: 1.8;
   outline: none;
