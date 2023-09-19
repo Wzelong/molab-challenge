@@ -24,7 +24,7 @@ exports.uploadArticles = async (req, res) => {
       const year = parseInt(entry.entryTags.year, 10) || "";
       const authors = entry.entryTags.author || "";
       // Create citation: "author. (year). title. [additional info]"
-      let citation = `${authors}. (${year}). ${title}.`;
+      let citation = `${authors}. (${year}). ${title}`;
 
       let type = "";
       // Determine the type based on available fields
