@@ -44,7 +44,7 @@ exports.uploadArticles = async (req, res) => {
     if (parsed.hasOwnProperty(key)) {
       const entry = parsed[key];
       const year = parseInt(entry.entryTags.year, 10) || "";
-      const citation = generateApaCitationHTML(entry);
+      const citation = generateApaCitationHTML(entry.entryTags);
 
       let type = "";
       // Determine the type based on available fields
