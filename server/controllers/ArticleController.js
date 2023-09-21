@@ -42,6 +42,7 @@ exports.uploadArticles = async (req, res) => {
   for (const key in parsed) {
     // eslint-disable-next-line no-prototype-builtins
     if (parsed.hasOwnProperty(key)) {
+      const entry = parsed[key];
       const year = parseInt(entry.entryTags.year, 10) || "";
       const citation = generateApaCitationHTML(entry);
 
