@@ -21,7 +21,7 @@ function generateApaCitationHTML(entry) {
     authorsOrEditors = `${entry.editor.join(", ")} ${eds}`;
   }
 
-  switch (entry.type.toLowerCase()) {
+  switch (entry.entryType.toLowerCase()) {
   case "article":
     return `${authorsOrEditors} (${entry.year}). <em>${entry.title}</em>. <em>${entry.journal}, ${entry.volume}</em>(${entry.number}), ${entry.pages}.`;
   case "book":
