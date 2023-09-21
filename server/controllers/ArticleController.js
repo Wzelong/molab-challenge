@@ -11,6 +11,29 @@ exports.getArticles = async (req, res) => {
   }
 };
 
+// Generate APA citation in HTML format
+function generateApaCitationHTML(entry) {
+  let authorsOrEditors = "";
+  if (entry.author) {
+    authorsOrEditors = entry.author.join(", ");
+  } else if (entry.editor) {
+    const eds = entry.editor.length > 1 ? "(Eds.)" : "(Ed.)";
+    authorsOrEditors = `${entry.editor.join(", ")} ${eds}`;
+  }
+
+  switch (entry.type.toLowerCase()) {
+  case "article":
+    return `${authorsOrEditors} (${entry.year}). <em>${entry.title}</em>. <em>${entry.journal}, ${entry.volume}</em>(${entry.number}), ${entry.pages}.`;
+  case "book":
+    return `${authorsOrEditors} (${entry.year}). <em>${entry.title}</em>. ${entry.publisher}.`;
+  case "inproceedings":
+  case "proceedings":
+    return `${authorsOrEditors} (${entry.year}). ${entry.title}. In <em>${entry.booktitle ? entry.booktitle : entry.title}</em>. ${entry.address ? entry.address + ". " : ""}${entry.publisher}. ${entry.url ? `<a href="${entry.url}">${entry.url}</a>` : ""}`;
+  default:
+    return "Unknown entry type.";
+  }
+}
+
 exports.uploadArticles = async (req, res) => {
   const fileBuffer = req.file.buffer.toString();
   const parsed = bibtexParser.toJSON(fileBuffer);
@@ -19,12 +42,8 @@ exports.uploadArticles = async (req, res) => {
   for (const key in parsed) {
     // eslint-disable-next-line no-prototype-builtins
     if (parsed.hasOwnProperty(key)) {
-      const entry = parsed[key];
-      const title = entry.entryTags.title || "";
       const year = parseInt(entry.entryTags.year, 10) || "";
-      const authors = entry.entryTags.author || "";
-      // Create citation: "author. (year). title. [additional info]"
-      let citation = `${authors}. (${year}). ${title}`;
+      const citation = generateApaCitationHTML(entry);
 
       let type = "";
       // Determine the type based on available fields
@@ -42,15 +61,6 @@ exports.uploadArticles = async (req, res) => {
         type = "Book Chapter";
       } else if (entry.entryTags.publisher && !entry.entryTags.booktitle) {
         type = "Book";
-      }
-      // Append additional fields if they exist.
-      let additionalInfo = Object.keys(entry.entryTags)
-        .filter(field => !["title", "year", "author"].includes(field))
-        .map(field => `${entry.entryTags[field]}`)
-        .join(". ");
-
-      if(additionalInfo) {
-        citation += ` ${additionalInfo}.`;
       }
 
       const article = {
