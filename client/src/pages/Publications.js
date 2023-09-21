@@ -256,7 +256,7 @@ const ArticleTitle = styled.div`
 
 const ArticleAuthors = styled.div`
   position: relative;
-  font-size: calc(0.27vw + 0.8rem);
+  font-size: calc(0.25vw + 0.7rem);
   letter-spacing: 0.03em;
   font-family: ArticleFont;
   width: fit-content;

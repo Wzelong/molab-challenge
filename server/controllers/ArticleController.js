@@ -24,7 +24,7 @@ function generateApaCitationHTML(entry) {
 
   switch (entry.entryType.toLowerCase()) {
   case "article":
-    return `${authorsOrEditors} (${entryTags.year}). <em>${entryTags.title}</em>. <em>${entryTags.journal}, ${entryTags.volume}</em>(${entryTags.number}), ${entryTags.pages}.`;
+    return `${authorsOrEditors} (${entryTags.year}). ${entryTags.title}. <em>${entryTags.journal}, ${entryTags.volume}</em>(${entryTags.number}), ${entryTags.pages}.`;
   case "book":
     return `${authorsOrEditors} (${entryTags.year}). <em>${entryTags.title}</em>. ${entryTags.publisher}.`;
   case "inproceedings":
