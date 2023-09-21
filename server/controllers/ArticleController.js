@@ -14,21 +14,22 @@ exports.getArticles = async (req, res) => {
 // Generate APA citation in HTML format
 function generateApaCitationHTML(entry) {
   let authorsOrEditors = "";
-  if (entry.author) {
-    authorsOrEditors = entry.author.join(", ");
-  } else if (entry.editor) {
-    const eds = entry.editor.length > 1 ? "(Eds.)" : "(Ed.)";
-    authorsOrEditors = `${entry.editor.join(", ")} ${eds}`;
+  const entryTags = entry.entryTags;
+  if (entryTags.author) {
+    authorsOrEditors = entryTags.author;
+  } else if (entryTags.editor) {
+    const eds = entryTags.editor.length > 1 ? "(Eds.)" : "(Ed.)";
+    authorsOrEditors = `${entryTags.editor} ${eds}`;
   }
 
   switch (entry.entryType.toLowerCase()) {
   case "article":
-    return `${authorsOrEditors} (${entry.year}). <em>${entry.title}</em>. <em>${entry.journal}, ${entry.volume}</em>(${entry.number}), ${entry.pages}.`;
+    return `${authorsOrEditors} (${entryTags.year}). <em>${entryTags.title}</em>. <em>${entryTags.journal}, ${entryTags.volume}</em>(${entryTags.number}), ${entryTags.pages}.`;
   case "book":
-    return `${authorsOrEditors} (${entry.year}). <em>${entry.title}</em>. ${entry.publisher}.`;
+    return `${authorsOrEditors} (${entryTags.year}). <em>${entryTags.title}</em>. ${entryTags.publisher}.`;
   case "inproceedings":
   case "proceedings":
-    return `${authorsOrEditors} (${entry.year}). ${entry.title}. In <em>${entry.booktitle ? entry.booktitle : entry.title}</em>. ${entry.address ? entry.address + ". " : ""}${entry.publisher}. ${entry.url ? `<a href="${entry.url}">${entry.url}</a>` : ""}`;
+    return `${authorsOrEditors} (${entryTags.year}). ${entryTags.title}. In <em>${entryTags.booktitle ? entryTags.booktitle : entryTags.title}</em>. ${entryTags.address ? entryTags.address + ". " : ""}${entryTags.publisher}.`;
   default:
     return "Unknown entry type.";
   }
@@ -44,7 +45,8 @@ exports.uploadArticles = async (req, res) => {
     if (parsed.hasOwnProperty(key)) {
       const entry = parsed[key];
       const year = parseInt(entry.entryTags.year, 10) || "";
-      const citation = generateApaCitationHTML(entry.entryTags);
+      const title = entry.entryTags.title || "";
+      const citation = generateApaCitationHTML(entry);
 
       let type = "";
       // Determine the type based on available fields

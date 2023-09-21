@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Drawer, Select, Upload, message } from "antd";
 import SearchBar from "../components/SearchBar";
-import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useUserContext } from "../contexts/UserContext";
 import axios from "axios";
 
@@ -123,7 +123,9 @@ const Publications = () => {
               return filteredArticles.map((article, index) => (
                 <Item key={index}>
                   <ArticleTitle>{article.title}</ArticleTitle>
-                  <ArticleAuthors>{article.citation}</ArticleAuthors>
+                  <ArticleAuthors
+                    dangerouslySetInnerHTML={{ __html: article.citation }}
+                  />
                   {article.bib && (
                     <Bib onClick={() => window.open(article.bib)}>bib</Bib>
                   )}
@@ -308,6 +310,8 @@ const FilterButton = styled.div`
 const Filter = (props) => {
   const { isAdmin } = useUserContext(); // Need admin status for uploading publications
 
+  const [loading, setLoading] = useState(false); // Loading state for uploading publications
+
   // props.setFilterType() passes the selected filter value to the parent component and apply to the article list
   // setFilterType() is used to display custom input for each filter: "Year: all", "Type: all", "Topic: all".
 
@@ -358,10 +362,14 @@ const Filter = (props) => {
   };
 
   const handleUpload = (info) => {
-    if (info.file.status === "done") {
+    if (info.file.status === "uploading") {
+      setLoading(true);
+    } else if (info.file.status === "done") {
       message.success(`${info.file.name} file uploaded successfully`);
+      setLoading(false);
       props.fetchArticles();
     } else if (info.file.status === "error") {
+      setLoading(false);
       message.error(`${info.file.name} file upload failed.`);
     }
   };
@@ -406,9 +414,15 @@ const Filter = (props) => {
       {isAdmin && (
         <Upload {...UploadProps} onChange={handleUpload}>
           <UploadButton>
-            <UploadOutlined
-              style={{ fontSize: "1.1rem", marginRight: "5px" }}
-            />
+            {loading ? (
+              <LoadingOutlined
+                style={{ fontSize: "1.1rem", marginRight: "5px" }}
+              />
+            ) : (
+              <UploadOutlined
+                style={{ fontSize: "1.1rem", marginRight: "5px" }}
+              />
+            )}
             Upload publications
           </UploadButton>
         </Upload>
